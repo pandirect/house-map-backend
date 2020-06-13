@@ -8,17 +8,23 @@ import {
 } from 'typeorm';
 import { INote } from '../interfaces';
 import { plainToClass } from 'class-transformer';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Note implements INote {
+  @ApiProperty()
   @PrimaryGeneratedColumn('increment')
   id: number;
+  @ApiProperty()
   @Column('text')
   title: string;
+  @ApiProperty()
   @Column('text')
   description: string;
+  @ApiProperty()
   @CreateDateColumn({ type: 'timestamptz' })
   created_at: string;
+  @ApiProperty()
   @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: string;
 
