@@ -3,36 +3,36 @@ import { INote } from './interfaces';
 import { NoteDto } from './dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Note } from './entity';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class NotesService {
   constructor(
     @InjectRepository(Note)
-    private notesRepository: Repository<Note>,
+    private readonly notesRepository: Repository<Note>,
   ) {}
 
   async findAll(): Promise<INote[]> {
-    return []
+    return this.notesRepository.find();
   }
 
-  async find(id: number): Promise<INote> {
-    return this.notesRepository.findOne({ where: {id} })
+  async findOne(id: number): Promise<INote> {
+    return this.notesRepository.findOne({ where: { id } });
   }
 
-  async create(dto: NoteDto): Promise<void> {
-    const note = new Note();
-    note.title = dto.title
-    note.description = dto.description
+  async create(dto: NoteDto): Promise<INote> {
+    const note = Note.createFromObject(dto);
 
-    await this.notesRepository.save(note)
+    console.log(note);
+
+    return this.notesRepository.save(note);
   }
 
-  async update(id: number, note: NoteDto): Promise<void> {
-
+  async update(id: number, dto: NoteDto): Promise<UpdateResult> {
+    return this.notesRepository.update(id, dto);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.notesRepository.delete(id)
+  async remove(id: number): Promise<DeleteResult> {
+    return this.notesRepository.delete(id);
   }
 }
