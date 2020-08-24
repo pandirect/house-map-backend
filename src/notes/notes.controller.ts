@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
@@ -28,8 +29,8 @@ export class NotesController {
 
   @Get()
   @ApiOkResponse({ type: Note, isArray: true })
-  async findAll(): Promise<INote[]> {
-    return this.notesService.findAll();
+  async findAll(@Query() query: object): Promise<INote[]> {
+    return this.notesService.findAll(query as any);
   }
 
   @Get(':id')

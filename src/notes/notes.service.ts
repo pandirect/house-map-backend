@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Note } from './entity';
 import { DeleteResult, Repository, UpdateResult } from 'typeorm';
 
+type TSortableData = { [P in keyof Note]?: "ASC" | "DESC" | 1 | -1 }
+
 @Injectable()
 export class NotesService {
   constructor(
@@ -12,8 +14,10 @@ export class NotesService {
     private readonly notesRepository: Repository<Note>,
   ) {}
 
-  async findAll(): Promise<INote[]> {
-    return this.notesRepository.find();
+  async findAll(params: TSortableData): Promise<INote[]> {
+    return this.notesRepository.find({
+      order: params
+    });
   }
 
   async findOne(id: number): Promise<INote> {
@@ -22,8 +26,6 @@ export class NotesService {
 
   async create(dto: NoteDto): Promise<INote> {
     const note = Note.createFromObject(dto);
-
-    console.log(note);
 
     return this.notesRepository.save(note);
   }
