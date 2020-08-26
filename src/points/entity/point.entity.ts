@@ -9,40 +9,49 @@ export class Point {
   id: number;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', {nullable: true})
   address: string;
 
   @ApiProperty()
-  @Column('integer')
+  @Column('integer', {nullable: true})
   type: number;
 
   @ApiProperty()
-  @Column('integer')
+  @Column('integer', {nullable: true})
   specialization: number;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', {nullable: true})
   info_number: string;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', {nullable: true})
   info_action: string;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', {nullable: true})
   scheme_number: string;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', {nullable: true})
   square: string;
 
   @ApiProperty()
-  @Column('integer')
+  @Column('integer', {nullable: true})
   status: number;
 
   @ApiProperty()
-  @Column('text', {array: true})
-  urls: string[];
+  @Column('double precision', {nullable: true})
+  positionx: number;
+
+  @ApiProperty()
+  @Column('double precision', {nullable: true})
+  positiony: number;
+
+  @ApiProperty()
+  @Column('json', {nullable: true})
+    // eslint-disable-next-line @typescript-eslint/ban-types
+  images: object;
 
   @ApiProperty()
   @CreateDateColumn({ type: 'timestamptz' })
