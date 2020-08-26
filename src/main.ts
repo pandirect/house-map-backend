@@ -9,6 +9,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
 
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
