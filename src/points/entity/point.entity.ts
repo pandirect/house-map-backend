@@ -13,11 +13,11 @@ export class Point {
   address: string;
 
   @ApiProperty()
-  @Column('number')
+  @Column('integer')
   type: number;
 
   @ApiProperty()
-  @Column('number')
+  @Column('integer')
   specialization: number;
 
   @ApiProperty()
@@ -37,8 +37,12 @@ export class Point {
   square: string;
 
   @ApiProperty()
-  @Column('number')
-  status : number;
+  @Column('integer')
+  status: number;
+
+  @ApiProperty()
+  @Column('text', {array: true})
+  urls: string[];
 
   @ApiProperty()
   @CreateDateColumn({ type: 'timestamptz' })
